@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useMemo } from "react"
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet"
-import L, { Icon } from "leaflet"
-import "leaflet/dist/leaflet.css"
+import L, { Icon } from "leaflet";
+import "leaflet/dist/leaflet.css";
+import { useEffect, useMemo } from "react";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 
 type Props = {
   center: [number, number]

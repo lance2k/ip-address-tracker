@@ -1,8 +1,8 @@
 "use client";
 
-import { use, useCallback, useEffect, useMemo, useState } from "react";
-import Image from "next/image";
 import dynamic from "next/dynamic";
+import Image from "next/image";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const LeafletMap = dynamic(() => import("./LeafletMap"), {ssr: false});
 
