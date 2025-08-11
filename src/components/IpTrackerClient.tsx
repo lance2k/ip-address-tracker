@@ -20,6 +20,11 @@ type GeoData = {
   org: string | null; // ISP/Organization
 };
 
+type DNSAnswer = {
+  type: number;
+  data: string;
+};
+
 const initialCenter: [number, number] = [37.3861, -122.0839]; // fallback: Mountain View
 
 function formatUTCOffset(utc: string | null | undefined): string {
@@ -58,8 +63,8 @@ export default function IpTrackerClient() {
       const j = await res.json();
       if (j.error) throw new Error(j.reason || "Lookup failed");
       setData(j as GeoData);
-    } catch (e: any) {
-      setError(e.message || "Failed to fetch your location");
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Failed to fetch your location");
     } finally {
       setLoading(false);
     }
@@ -81,7 +86,7 @@ export default function IpTrackerClient() {
           );
           const dns = await dnsRes.json();
           const answer = Array.isArray(dns.Answer)
-            ? dns.Answer.find((a: any) => a.type === 1)
+            ? dns.Answer.find((a: DNSAnswer) => a.type === 1)
             : null;
           if (answer && answer.data) target = answer.data;
         } catch {
@@ -94,8 +99,8 @@ export default function IpTrackerClient() {
       const j = await res.json();
       if (j.error) throw new Error(j.reason || "Lookup failed");
       setData(j as GeoData);
-    } catch (e: any) {
-      setError(e.message || "Search failed");
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Search failed");
     } finally {
       setLoading(false);
     }
